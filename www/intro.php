@@ -8,12 +8,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<script src="https://use.fontawesome.com/af06815fdc.js"></script> 
-	
-	<style type="text/css">
-		.row {
-  height: 5em;
-}
-	</style>
 
     <title>Exchange currency</title>
   </head>
@@ -71,7 +65,7 @@
   
   <header>
     <nav class="navbar navbar-expand-md navbar-light bg-light">
-		<a class="navbar-brand" href="intro.html">
+		<a class="navbar-brand" href="intro.php">
 			<img src="logo.png" style="width:54px;">
 			ExchCurrency
 		</a>
@@ -114,6 +108,27 @@
   </header>
 	
 	<main>
+	<?php
+	$text = '
+		<h3>Новость 1</h3>
+		<p>Текст 1 новости...</p>
+		<h3>Новость 2</h3>
+		<p>Текст 2 новости...</p>
+		<h3>Новость 3</h3>
+		<p>Текст 3 новости...</p>
+		<h3>Новость 4</h3>
+		<p>Текст 4 новости...</p>
+	';
+	?>
+	<?php include '../phpscripts/headings.php'; ?>
+	<?php
+	$text = createHeadings($text, 'h3', 'Содержание блока новостей');
+	?>
+	<div class ="container text-center">
+		<?php echo $text; ?>
+	</div>
+	
+	
 	<div class="container-fluid pt-5">
 		<div class="row">
 			<div class="col-3"></div>
@@ -147,12 +162,13 @@
 			</div>
 		</div>
 	</div>
+	
 	</main>
 	
 	<footer class="page-footer font-small unique-color-dark bg-light mt-3">
 		<div class="primary-color">
 			<div class="container-fluid">
-				<div class="row py-4 d-flex align-items-center">
+				<div class="row py-4 d-flex align-items-center" style ="height: 5em">
 					<div class="col-md-6 col-lg-5 text-center text-md-left mb-4">
 						<a href="intro.php"> <img src="logo.png" style="width:60px;"> </a>
 						<a class="ml-2 white-text"> Вы можете связаться с нами в социальных сетях!</a>

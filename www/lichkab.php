@@ -9,10 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<script src="https://use.fontawesome.com/af06815fdc.js"></script> 
 	
-	<style type="text/css">
-		.row {
-  height: 5em;
-}
+
 	</style>
 
     <title>Exchange currency</title>
@@ -23,10 +20,13 @@
   
 	<?php require "../db.php"; // подключаем файл для соединения с БД
 	?>
+	<?php 
+	
+	?>
 	
   <header>
     <nav class="navbar navbar-expand-md navbar-light bg-light">
-		<a class="navbar-brand" href="intro.html">
+		<a class="navbar-brand" href="intro.php">
 			<img src="logo.png" style="width:54px;">
 			ExchCurrency
 		</a>
@@ -72,7 +72,44 @@
 	<div class="container">
 		<?php if(isset($_SESSION['auth'])) : ?>
 			<center><H1>Личный кабинет<H1></center>
-			<H6>Добро пожаловать, <?php echo $_SESSION['auth']->name; ?></H6>
+			<H6>Добро пожаловать, <?php echo $_SESSION['auth']->name; ?>!</H6>
+			<center><H3>Ваша история операций:<H3></center>
+			<?php
+			$login = $_SESSION['auth']->login;
+			$result = R::find('lich', 'login = ?', [$login]);
+			if (count($result)>=1)
+			{?>
+				<div class="row text-center">
+					<div class="col">ID</div>
+					<div class="col text-center">DATE</div>
+					<div class="col">SUMMA</div>
+					<div class="col">VALUTA</div>
+					<div class="col">KURS</div>
+					<div class="col">OPERACIA</div>
+				</div>
+				<hr align="center" width="100%" color="Grey"/>
+			<?php
+				$N=count($result);
+				for($i = 1; $i <= $N; $i++)// получаем все строки в цикле по одной
+				{
+			?>
+					<div class="row text-center">
+						<div class="col"><?php echo $result[$i]->id?></div>
+						<div class="col"><?php echo $result[$i]->date?></div>
+						<div class="col"><?php echo $result[$i]->summa?></div>
+						<div class="col"><?php echo $result[$i]->valuta?></div>
+						<div class="col"><?php echo $result[$i]->kursval?></div>
+						<div class="col"><?php echo $result[$i]->operac?></div>
+					</div>
+					<hr align="center" width="100%" color="Grey"/>
+			<?php
+				}
+			}
+			else
+			{
+				echo ' История операций пуста!';
+			}
+			?>
 		<?php else : ?>
 			<H1>Вы не авторизованы!</H1>
 			<H6>Войдите в аккаунт и повторите попытку снова.</H6>
@@ -83,7 +120,7 @@
   <footer class="page-footer font-small unique-color-dark bg-light mt-3">
 		<div class="primary-color">
 			<div class="container-fluid">
-				<div class="row py-4 d-flex align-items-center">
+				<div class="row py-4 d-flex align-items-center" style ="height: 5em">
 					<div class="col-md-6 col-lg-5 text-center text-md-left mb-4">
 						<a href="intro.php"> <img src="logo.png" style="width:60px;"> </a>
 						<a class="ml-2 white-text"> Вы можете связаться с нами в социальных сетях!</a>
